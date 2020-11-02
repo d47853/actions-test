@@ -61,9 +61,10 @@ jobs:
     - create-release-tag
     steps:
     - name: Checkout Master
-          uses: actions/checkout@v2
-          with:
-            ref: master
+      uses: actions/checkout@v2
+      with:
+        ref: master
+
     - name: Create Release Notes
       uses: docker://decathlon/release-notes-generator-action:2.0.1
       env:
