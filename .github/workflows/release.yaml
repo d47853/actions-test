@@ -2,7 +2,8 @@ name: Release
 
 on:
   milestone:
-  - closed
+   types:
+   - closed
 
 env:
   artifactId: gaffer2
