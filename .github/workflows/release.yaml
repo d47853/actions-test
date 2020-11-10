@@ -37,8 +37,8 @@ jobs:
         KORYPHE_POM_VERSION=$(mvn org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate -Dexpression=koryphe.version | grep -v '\[')
         mvn versions:set -DnewVersion=$RELEASE_VERSION -DgenerateBackupPoms=false
 
-        sed -i'' -e "s/^gaffer.version=.*/gaffer.version=$RELEASE_VERSION/g" rest-api/core-rest/src/main/resources/version.properties
-        sed -i'' -e "s/^koryphe.version=.*/koryphe.version=$KORYPHE_POM_VERSION/g" rest-api/core-rest/src/main/resources/version.properties
+        sed -i'' -e "s/^gaffer.version=.*/gaffer.version=$RELEASE_VERSION/" rest-api/core-rest/src/main/resources/version.properties
+        sed -i'' -e "s/^koryphe.version=.*/koryphe.version=$KORYPHE_POM_VERSION/" rest-api/core-rest/src/main/resources/version.properties
 
     - name: Set up Credentials
       run: git config --global credential.helper "store --file=.git/credentials"
