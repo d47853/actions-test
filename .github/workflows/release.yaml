@@ -178,7 +178,9 @@ jobs:
       run: openssl aes-256-cbc -K "$CODE_SIGNING_KEY" -iv "$CODE_SIGNING_IV" -in cd/codesigning.asc.enc -out cd/codesigning.asc -d
 
     - name: Import CodeSigning key
-      run: gpg --fast-import cd/codesigning.asc
+      run: |
+        export GPG_TTY=$(tty)
+        gpg --import cd/codesigning.asc
 
     - name: Release to Nexus
       env:
