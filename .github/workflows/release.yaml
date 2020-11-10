@@ -168,9 +168,6 @@ jobs:
       with:
         ref: master
 
-    - name: Initialise GPG
-      run: gpgconf --kill gpg-agent
-
     - name: Decode CodeSigning key
       env:
         CODE_SIGNING_KEY: ${{ secrets.CODE_SIGNING_KEY }}
@@ -180,7 +177,7 @@ jobs:
     - name: Import CodeSigning key
       run: |
         export GPG_TTY=$(tty)
-        gpg --import cd/codesigning.asc
+        gpg --batch --fast-import cd/codesigning.asc
 
     - name: Release to Nexus
       env:
