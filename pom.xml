@@ -32,6 +32,8 @@
         <scala.version>2.11</scala.version>
         <scala.minor.version>2.11.12</scala.minor.version>
 
+        <koryphe.version>2.0.0</koryphe.version>
+
         <!-- versions -->
         <checkstyle.plugin.version>2.17</checkstyle.plugin.version>
         <compiler.plugin.verson>2.3.2</compiler.plugin.verson>
