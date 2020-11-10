@@ -169,7 +169,7 @@ jobs:
         ref: master
 
     - name: Initialise GPG
-      run: gpg --list-keys
+      run: gpgconf --kill gpg-agent
 
     - name: Decode CodeSigning key
       env:
