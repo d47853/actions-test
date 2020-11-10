@@ -186,6 +186,6 @@ jobs:
       env:
         GPG_KEY_NAME: ${{ secrets.GPG_KEY_NAME }}
         GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
-        OSSRH_JIRA_USERNAME: ${{ secrets.OSS_JIRA_USERNAME }}
-        OSSRH_JIRA_PASSWORD: ${{ secrets.OSS_JIRA_PASSWORD }}
+        OSS_NEXUS_USERNAME: ${{ secrets.OSS_NEXUS_USERNAME }}
+        OSS_NEXUS_PASSWORD: ${{ secrets.OSS_NEXUS_PASSWORD }}
       run: mvn deploy -P sign,build-extras,quick,ossrh-release --settings cd/mvnsettings.xml -B
