@@ -7,6 +7,8 @@ on:
 
 env:
   artifactId: gaffer2
+  MAVEN_OPTS: -Dmaven.wagon.http.retryHandler.count=3 -Dmaven.wagon.httpconnectionManager.ttlSeconds=25
+
 
 jobs:
   create-release-tag:
@@ -34,12 +36,10 @@ jobs:
 
     - name: Update versions
       run: |
-        KORYPHE_POM_VERSION=$(mvn org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate -Dexpression=koryphe.version | grep -v '\[')
+        KORYPHE_POM_VERSION=$(mvn -q help:evaluate -Dexpression=koryphe.version -DforceStdout)
         mvn versions:set -DnewVersion=$RELEASE_VERSION -DgenerateBackupPoms=false
 
         sed -i'' -e "s/^gaffer.version=.*/gaffer.version=$RELEASE_VERSION/" rest-api/core-rest/src/main/resources/version.properties
-
-        echo $KORYPHE_POM_VERSION
         sed -i'' -e "s/^koryphe.version=.*/koryphe.version=$KORYPHE_POM_VERSION/" rest-api/core-rest/src/main/resources/version.properties
 
     - name: Set up Credentials
