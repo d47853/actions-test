@@ -184,5 +184,5 @@ jobs:
         OSS_NEXUS_USERNAME: ${{ secrets.OSS_NEXUS_USERNAME }}
         OSS_NEXUS_PASSWORD: ${{ secrets.OSS_NEXUS_PASSWORD }}
       run: |
-      export GPG_TTY=$(tty)
-      mvn deploy -P sign,build-extras,quick,ossrh-release --settings cd/mvnsettings.xml -B
+        export GPG_TTY=$(tty)
+        mvn deploy -P sign,build-extras,quick,ossrh-release --settings cd/mvnsettings.xml -B
