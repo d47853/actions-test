@@ -168,6 +168,9 @@ jobs:
       with:
         ref: master
 
+    - name: Initialise GPG
+      run: gpg --list-keys
+
     - name: Decode CodeSigning key
       env:
         CODE_SIGNING_KEY: ${{ secrets.CODE_SIGNING_KEY }}
