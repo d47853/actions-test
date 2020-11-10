@@ -27,7 +27,7 @@ jobs:
       run: |
         git remote set-branches --add origin develop
         git pull
-        git merge develop
+        git merge origin/develop
 
     - name: Set version
       run: echo "RELEASE_VERSION=$(echo ${{ github.event.milestone.title }} | cut -c 2-)" >> $GITHUB_ENV
@@ -150,7 +150,7 @@ jobs:
       run: |
         git remote set-branches --add origin master
         git pull
-        git merge master
+        git merge origin/master
         mvn release:update-versions -B
         NEW_GAFFER_VERSION=`mvn org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate -Dexpression=pom.version | grep -v '\['`
         sed -i'' -e 's/^gaffer.version=.*/gaffer.version='$NEW_GAFFER_VERSION'/' rest-api/core-rest/src/main/resources/version.properties
