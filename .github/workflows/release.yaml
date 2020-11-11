@@ -67,7 +67,7 @@ jobs:
         ref: master
 
     - name: Create Release Notes
-      uses: docker://decathlon/release-notes-generator-action:2.0.1
+      uses: docker://decathlon/release-notes-generator-action:2.1.0
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -183,6 +183,4 @@ jobs:
         GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
         OSS_NEXUS_USERNAME: ${{ secrets.OSS_NEXUS_USERNAME }}
         OSS_NEXUS_PASSWORD: ${{ secrets.OSS_NEXUS_PASSWORD }}
-      run: |
-        export GPG_TTY=$(tty)
-        mvn deploy -P sign,build-extras,quick,ossrh-release --settings cd/mvnsettings.xml -B
+      run: mvn deploy -P sign,build-extras,quick,ossrh-release --settings cd/mvnsettings.xml -B
