@@ -29,7 +29,7 @@ jobs:
     - name: Set up Github credentials
       run: |
         git config user.name Gaffer-Bot
-        git config user.email gaffer@users.noreply.github.com
+        git config user.email github-actions@github.com
 
     - name: Merge develop into master
       run: |
@@ -97,7 +97,7 @@ jobs:
     - name: Set up Github credentials
       run: |
         git config user.name Gaffer-Bot
-        git config user.email gaffer@users.noreply.github.com
+        git config user.email github-actions@github.com
 
     - name: Setup JDK
       uses: actions/setup-java@v1
@@ -134,7 +134,7 @@ jobs:
     - name: Set up Github credentials
       run: |
         git config user.name Gaffer-Bot
-        git config user.email gaffer@users.noreply.github.com
+        git config user.email github-actions@github.com
 
     - name: Setup JDK
       uses: actions/setup-java@v1
@@ -152,35 +152,35 @@ jobs:
         git commit -a -m "prepare for next development iteration"
         git push
 
-  release-to-nexus:
-    runs-on: ubuntu-latest
-    needs:
-    - create-release-tag
-
-    steps:
-    - name: Setup JDK
-      uses: actions/setup-java@v1
-      with:
-        java-version: 1.8
-
-    - name: Checkout master
-      uses: actions/checkout@v2
-      with:
-        ref: master
-
-    - name: Decode CodeSigning key
-      env:
-        CODE_SIGNING_KEY: ${{ secrets.CODE_SIGNING_KEY }}
-        CODE_SIGNING_IV: ${{ secrets.CODE_SIGNING_IV }}
-      run: openssl aes-256-cbc -K "$CODE_SIGNING_KEY" -iv "$CODE_SIGNING_IV" -in cd/codesigning.asc.enc -out cd/codesigning.asc -d
-
-    - name: Import CodeSigning key
-      run: gpg --batch --fast-import cd/codesigning.asc
-
-    - name: Release to Nexus
-      env:
-        GPG_KEY_NAME: ${{ secrets.GPG_KEY_NAME }}
-        GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
-        OSS_NEXUS_USERNAME: ${{ secrets.OSS_NEXUS_USERNAME }}
-        OSS_NEXUS_PASSWORD: ${{ secrets.OSS_NEXUS_PASSWORD }}
-      run: mvn deploy -P sign,build-extras,quick,ossrh-release --settings cd/mvnsettings.xml -B
+#  release-to-nexus:
+#    runs-on: ubuntu-latest
+#    needs:
+#    - create-release-tag
+#
+#    steps:
+#    - name: Setup JDK
+#      uses: actions/setup-java@v1
+#      with:
+#        java-version: 1.8
+#
+#    - name: Checkout master
+#      uses: actions/checkout@v2
+#      with:
+#        ref: master
+#
+#    - name: Decode CodeSigning key
+#      env:
+#        CODE_SIGNING_KEY: ${{ secrets.CODE_SIGNING_KEY }}
+#        CODE_SIGNING_IV: ${{ secrets.CODE_SIGNING_IV }}
+#      run: openssl aes-256-cbc -K "$CODE_SIGNING_KEY" -iv "$CODE_SIGNING_IV" -in cd/codesigning.asc.enc -out cd/codesigning.asc -d
+#
+#    - name: Import CodeSigning key
+#      run: gpg --batch --fast-import cd/codesigning.asc
+#
+#    - name: Release to Nexus
+#      env:
+#        GPG_KEY_NAME: ${{ secrets.GPG_KEY_NAME }}
+#        GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+#        OSS_NEXUS_USERNAME: ${{ secrets.OSS_NEXUS_USERNAME }}
+#        OSS_NEXUS_PASSWORD: ${{ secrets.OSS_NEXUS_PASSWORD }}
+#      run: mvn deploy -P sign,build-extras,quick,ossrh-release --settings cd/mvnsettings.xml -B
